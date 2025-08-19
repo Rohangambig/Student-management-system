@@ -1,24 +1,33 @@
 require('dotenv').config();
 const connectDB = require('./src/database/db');
-const {ApolloServer} = require('@apollo/server');
+const { ApolloServer } = require('@apollo/server');
 const { startStandaloneServer } = require('@apollo/server/standalone');
-const typeDefs = require('./src/graphQL/typeDefs')
-const resolvers = require('./src/graphQL/resolver')
+const {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault
+} = require('@apollo/server/plugin/landingPage/default');
+
+const typeDefs = require('./src/graphQL/typeDefs');
+const resolvers = require('./src/graphQL/resolver');
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers
+  typeDefs,
+  resolvers,
+  introspection: true, 
+  plugins: [
+    ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+  ],
 });
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
 
-async function startServer () {
-    await connectDB();
-    const {url} = await startStandaloneServer(server,{
-        listen:{port:port},
-    })
+async function startServer() {
+  await connectDB();
+  const { url } = await startStandaloneServer(server, {
+    listen: { port },
+  });
 
-    console.log(`Server is ready at ${url}`)
+  console.log(`🚀 Server ready at ${url}`);
 }
 
 startServer();
