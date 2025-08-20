@@ -16,7 +16,12 @@ async function startServer () {
     await connectDB();
     const {url} = await startStandaloneServer(server,{
         listen:{port:port},
-    })
+        cors: {
+            origin: [
+                "https://student-management-system-frontend-hzg2.onrender.com", 
+            ]
+    }
+})
 
     console.log(`Server is ready at ${url}`)
 }
