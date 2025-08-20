@@ -1,4 +1,6 @@
-# Student Management System — Backend README
+#Live Project : https://student-management-system-frontend-hzg2.onrender.com
+
+# Student Management System —  README
 
 A concise, **content‑only** README for your Node.js + Apollo GraphQL backend that powers the Student Management System. This document explains what the service does, 
 how to run it, how it’s deployed, and how to work with it—without embedding source code.
